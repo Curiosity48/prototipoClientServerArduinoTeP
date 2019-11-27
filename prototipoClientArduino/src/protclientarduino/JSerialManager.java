@@ -6,10 +6,15 @@
 package protclientarduino;
 
 
+
 /**
  *
  * @author peduzzi_samuele
  */
 public class JSerialManager {
+    
+    
+    
+    
     
 }

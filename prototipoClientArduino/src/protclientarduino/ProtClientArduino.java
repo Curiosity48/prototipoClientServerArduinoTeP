@@ -18,8 +18,9 @@ public class ProtClientArduino {
      */
     public static void main(String[] args) {
         
-        
-        
+        JClientArduino clientArduino = new JClientArduino();
+        clientArduino.startArduinoClient();
+
     }
     
 }

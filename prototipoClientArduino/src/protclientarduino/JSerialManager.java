@@ -5,6 +5,7 @@
  */
 package protclientarduino;
 
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import jssc.*;
@@ -18,12 +19,13 @@ public class JSerialManager {
     private SerialPort sP;
     private String className;
 
-    public JSerialManager(String portName) {
+    public void JSerialManager(String portName) {
         
         className = this.getClass().getName().toUpperCase();
 
         try {
             sP = new SerialPort(portName);
+            sP.openPort();
             sP.setParams(SerialPort.BAUDRATE_9600,
                     SerialPort.DATABITS_8,
                     SerialPort.STOPBITS_1,
@@ -37,31 +39,50 @@ public class JSerialManager {
             Logger.getLogger(JSerialManager.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    public JSerialManager() {
+        
+        JSerialManager(portSelector());
+    }
     
-//    private String portSelector() {
-//
-//        String[] portNames = SerialPortList.getPortNames();
-//
-//        if (portNames.length == 0) {
-//            System.out.println("Non ci sono porte disponibili");
-//            return "";
-//        } else {
-//            for (int i = 0; i < portNames.length; i++) {
-//            System.out.println(portNames[i]);
-//            }
-//            System.out.println("Seleziona una porta");
-//        }
-//
-//
+    
+    
+    
+    
+    private String portSelector() {
+
+        String[] portNames = SerialPortList.getPortNames();
+        Scanner scanner = new Scanner(System.in);
+        String portName = "COM1";
+
+        if (portNames.length == 0) {
+            System.out.println("Non ci sono porte disponibili");
+        } else {
+            for (int i = 0; i < portNames.length; i++) {
+            System.out.println(portNames[i]);
+            }
+            System.out.println("Seleziona una porta");
+            portName = scanner.nextLine();
+        }
+        
+        return portName;
+        
+    }
     
     public String readLine(int lenghtOfStringToRead) {
         
+        String receivedStr = "";
+        
         try {
-            return sP.readString(lenghtOfStringToRead);
+            if(sP.isOpened())
+                receivedStr =  sP.readString(lenghtOfStringToRead);
+            
         } catch (SerialPortException ex) {
-            Logger.getLogger(JSerialManager.class.getName()).log(Level.SEVERE, null, ex);
-            return "";                                                            
+            Logger.getLogger(JSerialManager.class.getName()).log(Level.SEVERE, null, ex);                                                          
         }
+        
+        
+        return receivedStr;
     }
     
     

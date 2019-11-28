@@ -9,15 +9,16 @@ package protclientarduino;
  *
  * @author samue
  */
-public class JClientArduinoTh extends Thread{
+public class JClientArduinoSenderTh extends Thread{
     
     
-    private JClientArduino clientArduino;
+    private JArduinoSenderReceiverManager clientArduino;
 
-    public JClientArduinoTh() {
-        
-        clientArduino = new JClientArduino();
+    public JClientArduinoSenderTh(JArduinoSenderReceiverManager clientArduino) {
+        this.clientArduino = clientArduino;
     }
+
+   
     
     @Override
     public void run() {      

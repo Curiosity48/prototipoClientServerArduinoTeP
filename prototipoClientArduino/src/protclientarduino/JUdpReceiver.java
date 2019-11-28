@@ -12,46 +12,58 @@ import java.io.PrintWriter;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.SocketException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author peduzzi_samuele
  */
 public class JUdpReceiver {
-    
+
     private int porta;
     private DatagramSocket serverSocket;
-    private boolean attivo;				// per la ripetizione
     private byte[] bufferIN;	// buffer spedizione e ricezione
-    
-    
-    
+
+    private boolean active;
+
+    private String className;
+
     public JUdpReceiver(int porta) throws SocketException {
-        this.porta = porta;
-        serverSocket = new DatagramSocket(porta);
-        attivo = true;
+        
+        startListener(porta);
         bufferIN = new byte[1024];
+        className = this.getClass().getName();
+    }
+
+    public void stopListener() {
+
+        serverSocket.close();
+        active = false;
     }
     
     
-    public void startServer() throws IOException {
+    public void startListener(int porta) {
         
-        System.out.println("In attesa di rispostadalServer");
-        
-        
-        int numCaratteri;
-        DatagramPacket receivePacket
-                = new DatagramPacket(bufferIN, bufferIN.length);
-        // attesa della ricezione dato dal client
-        serverSocket.receive(receivePacket);
-        // analisi del pacchetto ricevuto
-        
-        
-        
-        
-        
-        
-        while (attivo) {
+        try {
+            this.porta = porta;
+            serverSocket = new DatagramSocket(porta);
+            active = true;
+            System.out.println(className + ": Avviato");
+        } catch (SocketException ex) {
+            Logger.getLogger(JUdpReceiver.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+
+    public String getReceivedMessage() throws IOException {
+
+        if (active) {
+            int numCaratteri;
+            DatagramPacket receivePacket
+                    = new DatagramPacket(bufferIN, bufferIN.length);
+
+            // analisi del pacchetto ricevuto
             // definizione del datagramma
             receivePacket
                     = new DatagramPacket(bufferIN, bufferIN.length);
@@ -61,19 +73,12 @@ public class JUdpReceiver {
             String ricevuto = new String(receivePacket.getData());
             numCaratteri = receivePacket.getLength();
             ricevuto = ricevuto.substring(0, numCaratteri);	// elimina i caratteri in eccesso
-            
-            String outputLine = "RICEVUTO: " + ricevuto;
-            
-            System.out.println(outputLine);
-            
-//			}
+
+            return ricevuto;
         }
-        serverSocket.close();
-        
+        else 
+            return "";
+
     }
-    
-    
-    
-    
-    
+
 }

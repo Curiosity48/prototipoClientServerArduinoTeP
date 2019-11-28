@@ -20,10 +20,9 @@ void loop() {
   temp = dht.readTemperature();
   statoB = digitalRead(button);
   
-  Serial.print("Temperatura: ");
-  Serial.println(temp);
-  Serial.print("Bottone: ");
-  Serial.println(statoB);
-  Serial.println();
-  delay(250);
+  Serial.print(temp);
+  Serial.print(";");
+  Serial.print(statoB);
+  Serial.print(";");
+  delay(3600);
 }

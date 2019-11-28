@@ -18,13 +18,13 @@ import java.net.SocketException;
  *
  * @author peduzzi_samuele
  */
-public class JClient {
+public class JUdpSender {
 
     private byte[] bufferOUT;
     private InetAddress IPServer;
     private int portaServer;
 
-    public JClient(InetAddress IPServer, int portaServer) {
+    public JUdpSender(InetAddress IPServer, int portaServer) {
         this.IPServer = IPServer;
         this.portaServer = portaServer;
         bufferOUT = new byte[1024];
@@ -43,5 +43,9 @@ public class JClient {
         clientSocket.send(sendPacket);
         clientSocket.close();
     }
+    
+    
+    
+    
 
 }

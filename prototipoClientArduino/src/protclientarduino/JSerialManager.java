@@ -15,8 +15,8 @@ import jssc.*;
  */
 public class JSerialManager {
 
-    SerialPort sP;
-    String className;
+    private SerialPort sP;
+    private String className;
 
     public JSerialManager(String portName) {
         
@@ -54,15 +54,30 @@ public class JSerialManager {
 //
 //
     
-    public String readLine() {
+    public String readLine(int lenghtOfStringToRead) {
         
         try {
-            return sP.readString(6);
+            return sP.readString(lenghtOfStringToRead);
         } catch (SerialPortException ex) {
             Logger.getLogger(JSerialManager.class.getName()).log(Level.SEVERE, null, ex);
             return "";                                                            
         }
     }
+    
+    
+    public boolean sendString(String stringToSend) {
+
+        try {
+            sP.writeString(stringToSend);
+            return true;
+        } catch (SerialPortException ex) {
+            Logger.getLogger(JSerialManager.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+
+    }
+    
+    
     
     
     }

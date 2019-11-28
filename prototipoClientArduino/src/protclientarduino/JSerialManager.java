@@ -19,7 +19,7 @@ public class JSerialManager {
     String className;
 
     public JSerialManager(String portName) {
-
+        
         className = this.getClass().getName().toUpperCase();
 
         try {
@@ -37,7 +37,7 @@ public class JSerialManager {
             Logger.getLogger(JSerialManager.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
 //    private String portSelector() {
 //
 //        String[] portNames = SerialPortList.getPortNames();
@@ -53,4 +53,8 @@ public class JSerialManager {
 //        }
 //
 //
+    
+    
+    
+    
     }

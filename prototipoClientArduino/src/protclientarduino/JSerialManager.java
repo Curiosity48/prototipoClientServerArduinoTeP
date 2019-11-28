@@ -54,7 +54,15 @@ public class JSerialManager {
 //
 //
     
-    
+    public String readLine() {
+        
+        try {
+            return sP.readString(6);
+        } catch (SerialPortException ex) {
+            Logger.getLogger(JSerialManager.class.getName()).log(Level.SEVERE, null, ex);
+            return "";                                                            
+        }
+    }
     
     
     }

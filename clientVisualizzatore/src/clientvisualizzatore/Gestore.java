@@ -25,12 +25,18 @@ public class Gestore {
     }
 
     public void gestisciLettura() throws IOException {
-        String temperaturaDaAggiungere = "";
-        temperaturaDaAggiungere = so.ricevi();
-        l.aggiungiTemperatura(temperaturaDaAggiungere);
+        if (so.ricevi().equals("OK")) {
+            String temperaturaDaAggiungere = "";
+            temperaturaDaAggiungere = so.ricevi();
+            l.aggiungiTemperatura(temperaturaDaAggiungere);
+            gestisciScrittura();
+        }
+        if(so.ricevi().equals("NO") || so.ricevi().equals("")){
+            so.chiudiComunicazione();
+        }
     }
-    
-    public void gestisciScrittura(){
-        
+
+    public void gestisciScrittura() {
+        s.scrivi();
     }
 }

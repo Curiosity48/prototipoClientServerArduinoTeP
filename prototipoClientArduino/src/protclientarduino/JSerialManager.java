@@ -25,12 +25,11 @@ public class JSerialManager {
 
         try {
             sP = new SerialPort(portName);
-            sP.openPort();
-            sP.setParams(SerialPort.BAUDRATE_9600,
-                    SerialPort.DATABITS_8,
-                    SerialPort.STOPBITS_1,
-                    SerialPort.PARITY_NONE);
             if (sP.openPort()) {
+                sP.setParams(SerialPort.BAUDRATE_9600,
+                        SerialPort.DATABITS_8,
+                        SerialPort.STOPBITS_1,
+                        SerialPort.PARITY_NONE);
                 System.out.print(className + ": Porta aperta");
             } else {
                 System.out.print(className + ": Impossibile aprire la porta");
@@ -46,7 +45,15 @@ public class JSerialManager {
     }
     
     
-    
+    public void closeSerialPortSession() {
+        
+        try {
+            sP.closePort();
+        } catch (SerialPortException ex) {
+            Logger.getLogger(JSerialManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
     
     
     private String portSelector() {

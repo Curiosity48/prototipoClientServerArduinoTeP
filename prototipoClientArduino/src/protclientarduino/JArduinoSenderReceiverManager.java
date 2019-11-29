@@ -20,6 +20,8 @@ public class JArduinoSenderReceiverManager {
     private static JSerialManager sM;
     private static JUdpSender UDPSender;
     private static JUdpReceiver UDPReceiver;
+    
+    private String className;
 
     public JArduinoSenderReceiverManager() {
 
@@ -28,6 +30,8 @@ public class JArduinoSenderReceiverManager {
             InetAddress IPServer = InetAddress.getLocalHost();
             UDPSender = new JUdpSender(IPServer, 6000);
             UDPReceiver = new JUdpReceiver(6001);
+            
+            className = this.getClass().getName();
 
         } catch (Exception ex) {
             Logger.getLogger(JArduinoSenderReceiverManager.class.getName()).log(Level.SEVERE, null, ex);
@@ -39,7 +43,9 @@ public class JArduinoSenderReceiverManager {
         try {
             String stringToSend;
             stringToSend = sM.readLine(6);
+  
             UDPSender.sendArduinoData(stringToSend);
+            System.out.println(className + ": Stringa inviata al server: " + stringToSend );
             return true; //Dati inviati correttamente
         } catch (Exception e) {
             return false; //Invio dati fallito
@@ -65,6 +71,7 @@ public class JArduinoSenderReceiverManager {
     private boolean turnOnTheLed() { //Invia il segnale di accensione del Led
 
         if (sM.sendString("lOn")) {
+            System.out.println(className + ": Led acceso");
             return true;
         } else {
             return false;
@@ -75,6 +82,7 @@ public class JArduinoSenderReceiverManager {
     private boolean turnOffTheLed() { //Invia il segnale di accensione del Led
 
         if (sM.sendString("lOf")) {
+            System.out.println(className + ": Led spento");
             return true;
         } else {
             return false;

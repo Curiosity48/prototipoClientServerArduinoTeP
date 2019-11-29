@@ -6,21 +6,31 @@
 package clientvisualizzatore;
 
 import event.Listener;
+import java.net.SocketException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author mariani_luca
  */
-public class Visualizzatore extends javax.swing.JFrame implements Listener{
+public class Visualizzatore extends javax.swing.JFrame implements Listener {
 
     /**
      * Creates new form Visualizzatore
      */
+    SocketUDP so;
     Scrittore s;
-    public Visualizzatore() {
+    Lettore l;
+    Gestore g;
+
+    public Visualizzatore() throws SocketException {
         initComponents();
-        s = new Scrittore();
+        so = new SocketUDP();
+        l = new Lettore();
+        s = new Scrittore(l);
         s.aggiungiListener(this);
+        g = new Gestore(l, s, so);
     }
 
     /**
@@ -92,7 +102,11 @@ public class Visualizzatore extends javax.swing.JFrame implements Listener{
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Visualizzatore().setVisible(true);
+                try {
+                    new Visualizzatore().setVisible(true);
+                } catch (SocketException ex) {
+                    Logger.getLogger(Visualizzatore.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

@@ -22,7 +22,9 @@ public class Lettore {
         v.add(t);
     }
     
-    public String getTemperatura(){
-        return "";
+    public String getUltimaTemperatura(){
+        String s;
+        s = v.lastElement();
+        return s;
     }
 }

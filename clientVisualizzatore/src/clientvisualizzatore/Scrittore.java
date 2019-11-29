@@ -18,26 +18,26 @@ public class Scrittore {
     private String daScrivere;
     private Lettore l;
 
-    public Scrittore() {
+    public Scrittore(Lettore l) {
         vect = new Vector<>();
         daScrivere = "";
-        l = new Lettore();
+        this.l = l;
     }
-    
-    public void scrivi(){
-        daScrivere = l.getTemperatura();
+
+    public void scrivi() {
+        daScrivere = l.getUltimaTemperatura();
         notifica(daScrivere);
     }
-    
-    public void aggiungiListener(Listener li){
+
+    public void aggiungiListener(Listener li) {
         vect.add(li);
     }
-    
-    public void rimuoviListener(Listener li){
+
+    public void rimuoviListener(Listener li) {
         vect.remove(li);
     }
-    
-    public void notifica(String msg){
+
+    public void notifica(String msg) {
         for (int i = 0; i < 10; i++) {
             vect.elementAt(i).receive(msg);
         }

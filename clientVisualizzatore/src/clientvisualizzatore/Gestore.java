@@ -5,6 +5,7 @@
  */
 package clientvisualizzatore;
 
+import java.io.IOException;
 import java.net.SocketException;
 
 /**
@@ -12,17 +13,24 @@ import java.net.SocketException;
  * @author mariani_luca
  */
 public class Gestore {
+
     private Lettore l;
     private Scrittore s;
     private SocketUDP so;
-    
-    public Gestore() throws SocketException{
-        l = new Lettore();
-        s = new Scrittore();
-        so = new SocketUDP();
+
+    public Gestore(Lettore l, Scrittore s, SocketUDP so) throws SocketException {
+        this.l = l;
+        this.s = s;
+        this.so = so;
+    }
+
+    public void gestisciLettura() throws IOException {
+        String temperaturaDaAggiungere = "";
+        temperaturaDaAggiungere = so.ricevi();
+        l.aggiungiTemperatura(temperaturaDaAggiungere);
     }
     
-    public void gestisciLettura(){
+    public void gestisciScrittura(){
         
     }
 }

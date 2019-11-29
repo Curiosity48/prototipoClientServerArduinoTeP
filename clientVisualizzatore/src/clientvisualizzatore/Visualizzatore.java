@@ -6,6 +6,7 @@
 package clientvisualizzatore;
 
 import event.Listener;
+import java.io.IOException;
 import java.net.SocketException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,10 +20,10 @@ public class Visualizzatore extends javax.swing.JFrame implements Listener {
     /**
      * Creates new form Visualizzatore
      */
-    SocketUDP so;
-    Scrittore s;
-    Lettore l;
-    Gestore g;
+    static SocketUDP so;
+    static Scrittore s;
+    static Lettore l;
+    static Gestore g;
 
     public Visualizzatore() throws SocketException {
         initComponents();
@@ -75,7 +76,7 @@ public class Visualizzatore extends javax.swing.JFrame implements Listener {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) throws IOException {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -98,7 +99,14 @@ public class Visualizzatore extends javax.swing.JFrame implements Listener {
             java.util.logging.Logger.getLogger(Visualizzatore.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        
+        
+        
+        so.spedisci("RICHIESTA VISUALIZZAZIONE", "127.0.0.1", 6789);
+        g.gestisciLettura();
+        
+        
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

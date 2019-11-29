@@ -5,17 +5,22 @@
  */
 package clientvisualizzatore;
 
+import event.Listener;
+
 /**
  *
  * @author mariani_luca
  */
-public class Visualizzatore extends javax.swing.JFrame {
+public class Visualizzatore extends javax.swing.JFrame implements Listener{
 
     /**
      * Creates new form Visualizzatore
      */
+    Scrittore s;
     public Visualizzatore() {
         initComponents();
+        s = new Scrittore();
+        s.aggiungiListener(this);
     }
 
     /**
@@ -96,4 +101,9 @@ public class Visualizzatore extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void receive(String msg) {
+        jTextArea1.setText(msg);
+    }
 }

@@ -5,10 +5,24 @@
  */
 package clientvisualizzatore;
 
+import java.util.Vector;
+
 /**
  *
  * @author mariani_luca
  */
 public class Lettore {
+    private Vector<String> v;
     
+    public Lettore(){
+        v = new Vector<>();
+    }
+    
+    public void aggiungiTemperatura(String t){
+        v.add(t);
+    }
+    
+    public String getTemperatura(){
+        return "";
+    }
 }
